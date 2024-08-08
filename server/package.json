@@ -1,15 +1,18 @@
 {
   "name": "server",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "src/main.ts",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "tsx watch ./src/main.ts",
+    "serve": "json-server db/data.json --port 3001 "
   },
-  "devDependencies": {
-    "typescript": "^5.5.3",
-    "vite": "^5.4.0"
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "graphql": "^16.9.0",
+    "json-server": "^1.0.0-beta.1",
+    "tsx": "^4.17.0"
   }
 }

@@ -1,24 +1,22 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import {ApolloServer} from "@apollo/server"
+import {startStandaloneServer} from "@apollo/server/standalone"
+import { typeDefs } from "./schema"
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+export const resolvers ={
+    Query:{
+        async posts(){
+            const data = await fetch('http://localhost:3001/posts') 
+            return await data.json()
+            
+        }
+    }
+    }
+const server = new ApolloServer({
+    typeDefs,resolvers
+})
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const {url} = await startStandaloneServer(server,{
+    listen:{port:4000}
+})
+
+console.log('server listening to PORT 4000')
